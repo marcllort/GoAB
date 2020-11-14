@@ -1,6 +1,11 @@
 # GoAB
+GoLang implementation of Apache Workbench.
 
-## Task 1
+Using channels and GoRoutines to be able to use concurrency.
+
+## Part 1
+First, let's use the original Apache Workbench to see the results when testing it with a local NGINX deployment.
+
 1. Installed NGINX
 2. Installed Apache benchmark
 3. Run:     ```sh
@@ -68,7 +73,9 @@
     
     When it comes to the CPU usage, its noticeable that when using concurrency I manage to get to the 100% of usage, while if only using individual requests, without the concurrency, the CPU usage is around 48%. None of the tests have ended with an error, all were succesful.
     
-## Task 2
+## Part 2
+Now, let's try my GoLang implementation of Apache Workbench, and test it with a simple GoLang server.
+
 To build the goAB implementation and the server, run:
 ```sh
     go build -o goserver server.go
@@ -78,9 +85,14 @@ Then, just start the server with:
 ```sh
     ./goserver
 ```
-And start the goAB with the desired parameters (-n X to specify the X number of requests, -c X to specify the X of concurrent requests, and -k for keepAlive):
+Start the goAB with the desired parameters (-n X to specify the X number of requests, -c X to specify the X of concurrent requests, and -k for keepAlive):
 ```sh
     ./goab [parameters] http://localhost:8080/
 ```
 
-## Task 3
+## Part 3
+The comparison of speed with ApacheBench 2.3 has not resulted the way I thought it would. AB outperformed the GoAB version I implemented, even though the Go version should outperform it, specially when using more concurrency, as the GoRoutines of GoLang are more optimal than C version of threads.
+
+Goroutines are multiplexed on a limited number of threads, avoiding a lot of context switching overhead, while when using C, there is a change of context that slows down the system, mainly if not used properly.
+
+The results, would probably be better/quicker if my project was coded properly.
