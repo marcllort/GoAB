@@ -20,8 +20,7 @@ func request(pool chan string, n int, keepalive bool, client *http.Client) {
 		if keepalive {
 			req.Header.Set("Connection", "keep-alive")
 		}
-		resp, err := client.Do(req)
-		defer resp.Body.Close()
+		_, err = client.Do(req)
 
 		if err == nil {
 			nsucc++
