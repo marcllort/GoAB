@@ -66,6 +66,21 @@
     When I processed them 5 requests concurrently, it would take 0.255ms * 100 = 25.5ms
     "Same number". There is no time savings to performing concurrent requests.
     
-    When it comes to the CPU usage, its noticible that when using concurrency I manage to get to the 100% of usage, while if only using individual requests, without concurrency, the CPU usage is around 48%. None of the tests have ended with an error, all were succesful.
+    When it comes to the CPU usage, its noticeable that when using concurrency I manage to get to the 100% of usage, while if only using individual requests, without the concurrency, the CPU usage is around 48%. None of the tests have ended with an error, all were succesful.
     
+## Task 2
+To build the goAB implementation and the server, run:
+```sh
+    go build -o goserver server.go
+    go build -o goab main.go
+```
+Then, just start the server with: 
+```sh
+    ./goserver
+```
+And start the goAB with the desired parameters (-n X to specify the X number of requests, -c X to specify the X of concurrent requests, and -k for keepAlive):
+```sh
+    ./goab [parameters] http://localhost:8080/
+```
 
+## Task 3
